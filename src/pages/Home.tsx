@@ -1,16 +1,13 @@
-import { useHistory } from 'react-router-dom';
-
 import { FormEvent, useState } from 'react';
-
-import { Button } from '../components/Button';
-
-import illustration from '../assets/images/illustration.svg';
-import logoImg from '../assets/images/logo.svg';
-import googleImg from '../assets/images/google-icon.svg';
-import { useAuth } from '../hooks/userAuth';
-
-import '../styles/auth.scss'
+import { useHistory } from 'react-router-dom';
+import swal from 'sweetalert';
 import { database } from '../services/firebase';
+import { Button } from '../components/Button';
+import { useAuth } from '../hooks/userAuth';
+import logoImg from '../assets/images/logo.svg';
+import illustration from '../assets/images/illustration.svg';
+import googleImg from '../assets/images/google-icon.svg';
+import '../styles/auth.scss'
 
 export function Home(){
     const history = useHistory();
@@ -33,12 +30,20 @@ export function Home(){
         const roomRef = await database.ref(`rooms/${roomCode}`).get();
 
         if(!roomRef.exists()){
-            alert('Room does not exists');
+            swal({
+                title: 'Sala inexistente',
+                text: 'Calma, talvez você só tenha digitado o código errado.',
+                icon: 'error'
+            })
             return;
         }
 
-        if(roomRef.val().endedAt){
-            alert('Room already closed.')
+        if(roomRef.val().closedAt){
+            swal({
+                title: 'Sala encerrada',
+                text: 'O criador desta sala já encerrou.',
+                icon: 'info'
+            })
             return;
         }
         history.push(`/rooms/${roomCode}`)

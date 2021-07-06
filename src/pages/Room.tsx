@@ -45,7 +45,7 @@ export function Room(){
 
         setNewQuestion('');
     }
-
+    // TODO: Implementar opção para criadores de salas acessarem suas salas.
     async function handleLikeQuestion(questionId: string, likeId: string | undefined) {
         if(likeId){
             await database.ref(`rooms/${roomId}/questions/${questionId}/likes/${likeId}`).remove();
