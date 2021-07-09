@@ -18,7 +18,7 @@ export function Room(){
     const params = useParams<ParamsProps>();
 	const roomId = params.id;
     const [newQuestion, setNewQuestion] = useState('');
-	const { questions, title} = useRoom(roomId);
+	const { questions, title } = useRoom(roomId);
    
     async function handleSendQuestion(event: FormEvent) {
         event.preventDefault();
@@ -98,6 +98,7 @@ export function Room(){
 							author = {question.author}
 							isAnswered = {question.isAnswered}
 							isHighlighted = {question.isHighlighted}
+                            likeCount = {question.likeCount}
 						>
                             { !question.isAnswered && (
                                 <button

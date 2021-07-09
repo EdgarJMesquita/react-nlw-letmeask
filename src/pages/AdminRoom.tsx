@@ -2,6 +2,7 @@
 import { useHistory, useParams } from 'react-router-dom';
 import { Question } from '../components/Question';
 import { RoomCode } from '../components/RoomCode';
+import { UserRooms } from '../components/UserRooms';
 import { useRoom } from '../hooks/useRoom';
 import { Button } from '../components/Button';
 import { database } from '../services/firebase';
@@ -10,8 +11,8 @@ import logoImg from '../assets/images/logo.svg';
 import deleteImg from '../assets/images/delete.svg';
 import checkImg from '../assets/images/check.svg';
 import emptyQuestions from '../assets/images/empty-questions.svg';
-import answerImg from '../assets/images/answer.svg'; 
-
+import answerImg from '../assets/images/answer.svg';
+import like from '../assets/images/like.svg';
 import '../styles/room.scss';
 
 type ParamsProps = {
@@ -126,13 +127,14 @@ export function AdminRoom(){
                 <div className="content">
                     <img src={logoImg} alt="Letmeask" /> 
                     <div>
-                      <RoomCode code={params.id}/>
-                      <Button 
+                        <UserRooms />
+                        <RoomCode code={params.id}/>
+                        <Button 
                         onClick={handleEndRoom}
                         isOutlined
-                      >
+                        >
                         Encerrar sala
-                      </Button>
+                        </Button>
                     </div> 
                 </div>
             </header>
@@ -152,6 +154,7 @@ export function AdminRoom(){
                             author = {question.author}
                             isAnswered = {question.isAnswered}
                             isHighlighted = {question.isHighlighted}
+                            likeCount = {question.likeCount}
                         >   
                             { !question.isAnswered && (
                             <>
@@ -177,6 +180,10 @@ export function AdminRoom(){
                             >
                                 <img src={deleteImg} alt="Remover pergunta" />
                             </button>
+                            <div className="likes-count">
+                                <span>{question.likeCount}</span>
+                                <img src={like} alt="likes" />
+                            </div>
                          </Question>  
                         );
                     })}  

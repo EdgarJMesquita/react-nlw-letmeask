@@ -10,6 +10,7 @@ type QuestionProps = {
   content: string;
   isAnswered: boolean;
   isHighlighted: boolean;
+  likeCount: number;
 
   children?: ReactNode;
 }
@@ -19,7 +20,8 @@ export function Question({
   author,
   isAnswered = false,
   isHighlighted = false,
-  children
+  children,
+  likeCount
 }: QuestionProps){
   return(
     <div className={`question ${isAnswered ? 'answered' : ''} ${isHighlighted && !isAnswered ? 'highlighted' : ''}`}>

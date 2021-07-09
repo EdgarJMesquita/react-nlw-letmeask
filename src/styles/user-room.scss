@@ -1,0 +1,41 @@
+
+.user-room {
+  transform: translateX(35%);
+  background: #835AFD;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  img {
+    width: 25px;
+    height: 25px;
+    
+  }
+
+  .drop-down {
+    display: none;
+    position: absolute;
+    top: 40px;
+    left: 5px;
+    border: 2px solid #835AFD;
+    border-radius: 8px;
+    padding: .5rem;
+
+    ul {
+      list-style-type: none;
+
+      li {
+        margin: 5px 0;
+
+      }
+    }
+  }
+
+  &:hover .drop-down {
+    display: block;
+  }
+}
