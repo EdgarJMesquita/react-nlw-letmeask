@@ -5,7 +5,7 @@ import illustration from '../assets/images/illustration.svg';
 import logoImg from '../assets/images/logo.svg';
 
 import { Button } from '../components/Button';
-
+import { UserRooms } from '../components/UserRooms';
 //import { useAuth } from '../hooks/userAuth';
 
 import '../styles/auth.scss'
@@ -33,8 +33,9 @@ export function NewRoom(){
             
         });
         
-        await database.ref(`users/${user?.id}`).push({
-            key: firebaseRoom.key
+        await database.ref(`users/${user?.id}/${firebaseRoom.key}`).set({
+            key: firebaseRoom.key,
+            roomName: newRoom
         });
 
         history.push(`/admin/rooms/${firebaseRoom.key}`)
@@ -64,6 +65,9 @@ export function NewRoom(){
                     <p>Quer entrar em uma sala já existente?  <Link to="/">Clique aqui</Link></p>
                 </div>
             </main>
+            <div className="user-rooms">
+                <UserRooms />
+            </div>
         </div>
     )
 }

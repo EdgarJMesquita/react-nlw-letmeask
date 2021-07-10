@@ -1,5 +1,6 @@
 
 import { useHistory, useParams } from 'react-router-dom';
+import { useAuth } from '../hooks/userAuth';
 import { Question } from '../components/Question';
 import { RoomCode } from '../components/RoomCode';
 import { UserRooms } from '../components/UserRooms';
@@ -24,6 +25,7 @@ export function AdminRoom(){
     const params = useParams<ParamsProps>();
     const roomId = params.id;
     const { questions, title } = useRoom(roomId);
+    const { user } = useAuth();
 
     async function handleCheckQuestionAsAnswered(questionId:string) {
         await database.ref(`rooms/${roomId}/questions/${questionId}`).update({
@@ -101,9 +103,13 @@ export function AdminRoom(){
                 swal({
                     title: 'Sala encerrada',
                     icon: 'success',
-                    timer: 3000
+                    timer: 1000
+                    
+                   
+                }).then(res=>{
+                    database.ref(`users/${user?.id}/${roomId}`).remove();
+                    history.push('/rooms/new');
                 })
-                history.push('/');
             })
             .catch(err=>{
                 swal({
@@ -113,28 +119,27 @@ export function AdminRoom(){
                 })
                 history.push(`/rooms/${roomId}`)
             })
-           /*  await database.ref(`rooms/${roomId}`).update({
-                endedAt: new Date()
-            })
-            history.push('/') */
         }
-
     }
+
+    
 
     return(
         <div id="page-room">
             <header>
                 <div className="content">
-                    <img src={logoImg} alt="Letmeask" /> 
+                    <img onClick={()=>history.push('/')} src={logoImg} alt="Letmeask" /> 
                     <div>
-                        <UserRooms />
                         <RoomCode code={params.id}/>
-                        <Button 
-                        onClick={handleEndRoom}
-                        isOutlined
-                        >
-                        Encerrar sala
-                        </Button>
+                        <div>
+                            <UserRooms />
+                            <Button 
+                            onClick={handleEndRoom}
+                            isOutlined
+                            >
+                            Encerrar sala
+                            </Button>
+                        </div>
                     </div> 
                 </div>
             </header>

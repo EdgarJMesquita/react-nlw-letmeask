@@ -2,7 +2,7 @@
   background: #fefefe;
   border-radius: 8px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-  padding: 24px;
+  padding: 1.5rem;
 
   & + .question {
     margin-top: 8px;
@@ -94,8 +94,8 @@
       align-items: flex-end;
       color: #737380;
       position: absolute;
-      bottom: 58px;
-      right: -5px;
+      bottom: 40px;
+      right: -1px;
     }
   }
 }

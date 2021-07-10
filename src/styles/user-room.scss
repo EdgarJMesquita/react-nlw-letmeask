@@ -1,6 +1,5 @@
 
 .user-room {
-  transform: translateX(35%);
   background: #835AFD;
   width: 40px;
   height: 40px;
@@ -16,26 +15,58 @@
     
   }
 
-  .drop-down {
+  .drop-container {
+    padding-top: 10px;
+    background: transparent;
+
     display: none;
     position: absolute;
-    top: 40px;
-    left: 5px;
-    border: 2px solid #835AFD;
-    border-radius: 8px;
-    padding: .5rem;
+    top: 39px;
+    left: 0;
 
-    ul {
-      list-style-type: none;
+    .drop-down {
+      width: 120px;
+      border-radius: 8px;
+      padding: 1rem;
+      background: #835AFD;
+  
+      > div {
+        width: 10px;
+        height: 10px;
+        background: #835AFD;
+        position: absolute;
+        top: 5px;
+        transform: rotate(45deg);
+      }
 
-      li {
-        margin: 5px 0;
-
+      p {
+        color: #fff;
+      }
+  
+      ul {
+        list-style-type: none;
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 6px;
+        li {
+          color: #fff;
+          a {
+            text-decoration: none;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            width: 50px;
+            color: #fff;
+          }
+        }
       }
     }
   }
 
-  &:hover .drop-down {
+
+  
+  &:hover .drop-container {
     display: block;
   }
+
 }

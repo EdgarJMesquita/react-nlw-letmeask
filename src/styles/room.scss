@@ -1,6 +1,6 @@
 #page-room {
     header {
-        padding: 24px;
+        padding: 1.5rem;
         border-bottom: 1px solid #e2e2e2;
 
         .content {
@@ -9,20 +9,25 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            
 
             > img {
-                max-height: 45px;
+                max-height: 2.8125rem;
             }
 
             > div {
                 display: flex;
-                gap: 16px;
+                gap: 5px;
                 align-items: center;
 
-                button {
-                    height: 40px;
-                    
-                    
+                > div {
+                    display: flex;
+                    gap: 5px;
+
+                    button {
+                        height: 2.5rem;
+                        
+                    }
                 }
             }
         }
@@ -124,8 +129,8 @@
             
             img {
                 margin-top: 100px;
-                height: 180px;
-                width: 180px;
+                height: 11.25rem;
+                width: 11.25rem;
                 margin-bottom: 20px;
             }
 
@@ -143,6 +148,59 @@
                 color: #737380;
                 font-weight: 400;
                 text-align: center;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 500px) {
+
+    #page-room {
+        header {
+            
+            .content {
+                gap: 1rem;
+
+                > div {
+                    flex-direction: column;
+                    align-items: flex-start;
+
+                    > div {
+                        display: flex;
+                        gap: .3rem;
+                    }
+                }
+            }
+        }
+
+        main {
+            margin-left: 1rem;
+            margin-right: 1rem;
+
+            .room-title {
+                display: flex;
+                justify-content: space-between;
+                h1 {
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    width: 55%;
+                }
+                span {
+                    margin-left: 0;
+                }
+            }
+
+            .question-list {
+                margin-bottom: 1rem;
+            }
+
+            .empty-questions {
+                margin-bottom: 1rem;
+
+                img {
+                    margin-top: 1rem;
+
+                }
             }
         }
     }

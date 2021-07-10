@@ -1,14 +1,14 @@
 import { FormEvent, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import logoImg from '../assets/images/logo.svg';
-import { Question } from '../components/Question';
+import { useParams, useHistory } from 'react-router-dom';
 import { Button } from '../components/Button';
+import { Question } from '../components/Question';
 import { RoomCode } from '../components/RoomCode';
-import { useAuth } from '../hooks/userAuth';
 import { database } from '../services/firebase';
-import '../styles/room.scss';
+import { useAuth } from '../hooks/userAuth';
 import { useRoom } from '../hooks/useRoom';
+import '../styles/room.scss';
 
+import logoImg from '../assets/images/logo.svg';
 type ParamsProps = {
     id: string;
 }
@@ -17,6 +17,7 @@ export function Room(){
     const { user, signInWithGoogle } = useAuth();
     const params = useParams<ParamsProps>();
 	const roomId = params.id;
+    const history = useHistory();
     const [newQuestion, setNewQuestion] = useState('');
 	const { questions, title } = useRoom(roomId);
    
@@ -45,7 +46,7 @@ export function Room(){
 
         setNewQuestion('');
     }
-    // TODO: Implementar opção para criadores de salas acessarem suas salas.
+    // DONE: Implementar opção para criadores de salas acessarem suas salas.
     async function handleLikeQuestion(questionId: string, likeId: string | undefined) {
         if(likeId){
             await database.ref(`rooms/${roomId}/questions/${questionId}/likes/${likeId}`).remove();
@@ -62,7 +63,7 @@ export function Room(){
         <div id="page-room">
             <header>
                 <div className="content">
-                    <img src={logoImg} alt="Letmeask" />  
+                    <img onClick={()=>history.push('/')} src={logoImg} alt="Letmeask" />  
                     <RoomCode code={params.id}/>
                 </div>
             </header>

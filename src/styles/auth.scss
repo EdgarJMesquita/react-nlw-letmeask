@@ -146,5 +146,23 @@
             margin-left: 16px;
         }
     }
+
+    .user-rooms {
+        position: absolute;
+        left: 49%;
+        top: 17px;
+    }
 }
 
+@media screen and (max-width:500px){
+    #page-auth {
+        aside {
+            display: none;
+        }
+
+        .user-rooms {
+            left: 5%;
+            
+        }
+    }
+}
