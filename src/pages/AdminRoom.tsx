@@ -28,15 +28,25 @@ export function AdminRoom(){
     const { user } = useAuth();
 
     async function handleCheckQuestionAsAnswered(questionId:string) {
-        await database.ref(`rooms/${roomId}/questions/${questionId}`).update({
-            isAnswered: true
-        })
+        try{
+            await database.ref(`rooms/${roomId}/questions/${questionId}`).update({
+                isAnswered: true
+            });
+        }catch(e){
+            swal('Você não tem permissão','Apenas o criador da sala pode responder perguntas.', 'warning')
+            history.push(`/rooms/${roomId}`);
+        }
     }
 
     async function handleHightlightQuestion(questionId:string) {
-        await database.ref(`rooms/${roomId}/questions/${questionId}`).update({
-            isHighlighted: true
-        })
+        try {
+            await database.ref(`rooms/${roomId}/questions/${questionId}`).update({
+                isHighlighted: true
+            });
+        } catch (error) {
+            swal('Você não tem permissão','Apenas o criador da sala pode destacar perguntas.', 'warning')
+            history.push(`/rooms/${roomId}`);
+        }
     }
 
     async function handleDeleteQuestion(questionId: string) {
@@ -60,7 +70,19 @@ export function AdminRoom(){
         })
         
         if(promise){
-            database.ref(`rooms/${roomId}/questions/${questionId}`).remove()
+            try {
+                await database.ref(`rooms/${roomId}/questions/${questionId}`).remove();
+                swal('Questão excluída',{
+                    icon: 'success',
+                    timer: 1000,
+                    buttons: [false]
+                })
+            } catch (error) {
+                swal('Você não tem permissão','Apenas o criador da sala pode excluir perguntas.', 'warning');
+                history.push(`/rooms/${roomId}`);
+            }
+
+            /* database.ref(`rooms/${roomId}/questions/${questionId}`).remove()
             .then(res=>{
                 swal('Questão excluída',{
                     icon: 'success',
@@ -71,7 +93,7 @@ export function AdminRoom(){
             .catch(err=>{
                 swal('Você não tem permissão','Apenas o criador da sala pode excluir perguntas.', 'warning')
                 history.push(`/rooms/${roomId}`);
-            })           
+            });       */     
         }
         
     }
@@ -96,7 +118,29 @@ export function AdminRoom(){
             dangerMode: true
         })
         if(promise){
-            database.ref(`rooms/${roomId}`).update({
+
+            try {
+                await database.ref(`rooms/${roomId}`).update({
+                    closedAt: new Date()
+                });
+                await database.ref(`users/${user?.id}/${roomId}`).remove();
+                await swal({
+                    title: 'Sala encerrada',
+                    icon: 'success',
+                    timer: 1000
+                });
+                history.push('/rooms/new');
+
+            } catch (error) {
+                swal({
+                    title: 'Você não tem permissão',
+                    text: 'Apenas o criador da sala pode encerrá-la.',
+                    icon: 'error'
+                })
+                history.push(`/rooms/${roomId}`);
+            }
+
+           /*  database.ref(`rooms/${roomId}`).update({
                 closedAt: new Date()
             })
             .then(res=>{
@@ -118,7 +162,7 @@ export function AdminRoom(){
                     icon: 'error'
                 })
                 history.push(`/rooms/${roomId}`)
-            })
+            }) */
         }
     }
 
