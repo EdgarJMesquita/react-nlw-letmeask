@@ -9,7 +9,7 @@
   Com o `LetMeAsk` você pode criar salas com nomes customizados e um código de acesso único.
   Compartilhe o código de acesso com seus amigos.
  ## Criar perguntas
-  O usuários autenticados com o Google podem criar perguntas na sala.
+  O usuários autenticados com o Google podem criar perguntas na sala. E dar likes nas perguntas.
  ## Sistema de admin
   O criador da sala pode marcar perguntas como respondidas, destacadas ou excluir perguntas.
   O criador pode encerrar a sala a qualquer momento.
