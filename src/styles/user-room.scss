@@ -25,7 +25,7 @@
     left: 0;
 
     .drop-down {
-      width: 120px;
+      max-width: 250px;
       border-radius: 8px;
       padding: 1rem;
       background: #835AFD;
@@ -49,13 +49,14 @@
         align-items: flex-start;
         flex-direction: column;
         gap: 6px;
+
         li {
           color: #fff;
           a {
             text-decoration: none;
             white-space: nowrap;
             text-overflow: ellipsis;
-            width: 50px;
+            
             color: #fff;
           }
         }
